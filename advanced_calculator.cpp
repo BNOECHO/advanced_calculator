@@ -1,9 +1,9 @@
 #include<iostream>
 #include<string>
 #include <vector>
-#include"advanced-calculator.h"
+#include"advanced_calculator.h"
 using namespace std;
-bool isO(string a)
+bool isO(string a)//檢測是否為運算子
 {
 	switch (a[0])
 	{
@@ -21,7 +21,8 @@ double cal(string &a)
 	double R = 0;
 	vector<string> F;
 	string TEMP = "";
-	while (true)
+	bool end = false;
+	while (!end)
 	{
 		char c = a[0];
 		a.erase(a.begin() + 0);
@@ -46,8 +47,7 @@ double cal(string &a)
 		case ')':
 		case '\0':
 			if (TEMP != "")F.push_back(TEMP);
-			TEMP != "";
-			goto RES;
+			end = true;
 		case ' ':
 			break;
 		default:
@@ -57,9 +57,9 @@ double cal(string &a)
 	}
 
 
-RES:  //讀取到結尾 開始運算
+	//讀取到結尾 開始運算
 
-	//第一階運算*,/
+	//第一階運算(*,/)
 	for (int i = 1; i < F.size(); i += 2)
 	{
 		if (F[i] == "*")
@@ -76,7 +76,7 @@ RES:  //讀取到結尾 開始運算
 		}
 
 	}
-	//第二階運算+,-
+	//第二階運算(+,-)
 	for (int i = 1; i < F.size(); i += 2)
 	{
 		if (F[i] == "+")
