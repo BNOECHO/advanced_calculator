@@ -1,3 +1,4 @@
 # advanced_calculator
  
-基礎四則運算與括號
+基礎四則運算與括號與冪次
+
