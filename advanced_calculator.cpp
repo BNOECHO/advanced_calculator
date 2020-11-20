@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 #include <vector>
+#include<math.h>
 #include"advanced_calculator.h"
 using namespace std;
 bool isO(string a)//檢測是否為運算子
@@ -32,6 +33,7 @@ double cal(string &a)
 		case '-':
 		case '*':
 		case '/':
+		case '^':
 			if (TEMP != "")F.push_back(TEMP);
 			TEMP = "";
 			F.push_back(string(1, c));//C to S
@@ -58,8 +60,18 @@ double cal(string &a)
 
 
 	//讀取到結尾 開始運算
+	//第一階運算(^)
+	for (int i = 1; i < F.size(); i += 2)
+	{
+		if (F[i] == "^")
+		{
+			F[i - 1] = to_string(pow(stod(F[i - 1]) , stod(F[i + 1])));
+			F.erase(F.begin() + i, F.begin() + i + 2);
+			i -= 2;
+		}
 
-	//第一階運算(*,/)
+	}
+	//第二階運算(*,/)
 	for (int i = 1; i < F.size(); i += 2)
 	{
 		if (F[i] == "*")
@@ -76,7 +88,7 @@ double cal(string &a)
 		}
 
 	}
-	//第二階運算(+,-)
+	//第三階運算(+,-)
 	for (int i = 1; i < F.size(); i += 2)
 	{
 		if (F[i] == "+")
